@@ -66,34 +66,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-
-
-        // 스ㅜ프링 시큐리티에서 지정한 필터를 기준으로면 끼워넣을 수 있음
-        // 한글 인코딩 필터 설정
-//        http.addFilterBefore(encodingFilter(), CsrfFilter.class)
-
-
-        http.addFilterBefore(encodingFilter(), CsrfFilter.class)
-
+        // note : 스프링 시큐리티에서 지정한 필터를 기준으로면 끼워넣을 수 있다
+        http
+                // 한글 인코딩 필터 설정
+                .addFilterBefore(encodingFilter(), CsrfFilter.class)
                 // 인증 에러 필터
                 .addFilterBefore(authenticationErrorFilter, UsernamePasswordAuthenticationFilter.class)
-
-
                 // Jwt 인증 필터
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-
-
                 // 로그인 인증 필터
-
                 .addFilterBefore(jwtUsernamePasswordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
 
         http
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler);
 
-        http.httpBasic().disable() // 기본 HTTP 인증 비활성화
+        http
+                .httpBasic().disable() // 기본 HTTP 인증 비활성화
                 .csrf().disable() // CSRF 비활성화
                 .formLogin().disable() // formLogin 비활성화 관련 필터 해제
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 세션 생성 모드 설정
@@ -104,7 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().permitAll();
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -20,8 +20,9 @@ public class CommonExceptionAdvice { // 실상 정체는 컨트롤러
         return "error_page";
     }
 
+
     @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handle404(NoHandlerFoundException ex) {
 //        return "custom404";
         return "/resources/index.html";

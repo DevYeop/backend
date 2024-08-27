@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
         "org.scoula.*",
         "org.scoula.exception",
         "org.scoula.board.controller",
+        "org.scoula.member.controller",
 }) // Spring MVC용 컴포넌트 등록을 위한 스캔 패키지
 public class ServletConfig implements WebMvcConfigurer {
 
@@ -20,6 +21,8 @@ public class ServletConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/")
                 .setViewName("forward:/resources/index.html");
+        
+//        registry.addViewController("/index").setViewName("forward:/resources/index.html");
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,7 +20,8 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource({"classpath:/application.properties"})
-@MapperScan(basePackages = {"org.scoula.board.mapper"})
+@MapperScan(basePackages = {"org.scoula.board.mapper", "org.scoula.member.mapper"})
+@ComponentScan(basePackages = {"org.scoula.board.service", "org.scoula.member.service"})
 @Slf4j
 @EnableTransactionManagement
 public class RootConfig {

@@ -1,4 +1,4 @@
-package org.scoula;
+package org.scoula.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
