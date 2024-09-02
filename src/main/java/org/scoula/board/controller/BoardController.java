@@ -20,9 +20,14 @@ import java.util.List;
 public class BoardController {
     private final BoardService service;
 
+
     @GetMapping("")
     public ResponseEntity<List<BoardDTO>> getList() {
-        return ResponseEntity.ok(service.getList());
+
+        ResponseEntity<List<BoardDTO>> response = ResponseEntity.ok(service.getList());
+
+        return response;
+//        return ResponseEntity.ok(service.getList());
     }
 
     @GetMapping("/{no}")
