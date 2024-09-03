@@ -7,6 +7,8 @@ import org.scoula.board.domain.BoardVO;
 import org.scoula.board.dto.BoardDTO;
 import org.scoula.board.mapper.BoardMapper;
 import org.scoula.common.UploadFiles;
+import org.scoula.common.pagination.Page;
+import org.scoula.common.pagination.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -126,5 +128,17 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public boolean deleteAttachment(Long no) {
         return mapper.deleteAttachment(no) == 1;
+    }
+
+    @Override
+    public Page<BoardDTO> getPage(PageRequest pageRequest) {
+
+        List<BoardVO> boards = mapper.getPage(pageRequest);
+        int totalCount = mapper.getTotalCount();
+
+        log.info("currentPage : " + pageRequest.getPage());
+
+        return Page.of(pageRequest, totalCount,
+                boards.stream().map(BoardDTO::of).toList());
     }
 }

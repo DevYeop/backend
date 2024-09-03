@@ -6,6 +6,8 @@ import org.scoula.board.domain.BoardAttachmentVO;
 import org.scoula.board.dto.BoardDTO;
 import org.scoula.board.service.BoardService;
 import org.scoula.common.UploadFiles;
+import org.scoula.common.pagination.Page;
+import org.scoula.common.pagination.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,15 +24,20 @@ public class BoardController {
 
 
     @GetMapping("")
-    public ResponseEntity<List<BoardDTO>> getList() {
-
-        ResponseEntity<List<BoardDTO>> response = ResponseEntity.ok(service.getList());
-
-        return response;
-//        return ResponseEntity.ok(service.getList());
+    public ResponseEntity<Page> getList(PageRequest pageRequest) {
+        return ResponseEntity.ok(service.getPage(pageRequest));
     }
 
-    @GetMapping("/{no}")
+//    @GetMapping("")
+//    public ResponseEntity<List<BoardDTO>> getList() {
+//
+//        ResponseEntity<List<BoardDTO>> response = ResponseEntity.ok(service.getList());
+//
+//        return response;
+////        return ResponseEntity.ok(service.getList());
+//    }
+
+    @GetMapping("/{no}") // 15
     public ResponseEntity<BoardDTO> get(@PathVariable Long no) {
         return ResponseEntity.ok(service.get(no));
     }
@@ -46,12 +53,12 @@ public class BoardController {
         return ResponseEntity.ok(service.update(board));
     }
 
-    @DeleteMapping("/{no}")
+    @DeleteMapping("/{no}") // 11
     public ResponseEntity<BoardDTO> delete(@PathVariable Long no) {
         return ResponseEntity.ok(service.delete(no));
     }
 
-    @GetMapping("/download/{no}")
+    @GetMapping("/download/{no}") // 7
     public void download(@PathVariable Long no, HttpServletResponse response) throws Exception {
         BoardAttachmentVO attachment = service.getAttachment(no);
         File file = new File(attachment.getPath());

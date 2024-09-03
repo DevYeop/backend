@@ -88,12 +88,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests() // 경로별 접근 권한 설정
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-//                .antMatchers(HttpMethod.POST, "/api/member").authenticated()
-//                .antMatchers(HttpMethod.PUT, "/api/member", "/api/member/*/changepassword").authenticated()
 
-//                .antMatchers(HttpMethod.POST, "/api/board/**").authenticated()
-//                .antMatchers(HttpMethod.PUT, "/api/board/**").authenticated()
-//                .antMatchers(HttpMethod.DELETE, "/api/board/**").authenticated()
+//                .antMatchers(HttpMethod.GET, "/api/member/*").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/member", "/api/member/*/changepassword").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/member").authenticated()
+
+                .antMatchers(HttpMethod.POST, "/api/board/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/board/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/board/**").authenticated()
 
                 .anyRequest().permitAll();
 
@@ -154,7 +156,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 접근 제한 무시 경로 설정 – resource
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assets/**", "/*", "/api/member/**");
+        web.ignoring().antMatchers("/assets/**", "/*");
     }
 
 }

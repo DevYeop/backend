@@ -27,7 +27,6 @@ public class MemberController {
         return ResponseEntity.ok().body(service.checkDuplicate(username)); // sangyeop0715
     }
 
-
     @PostMapping("")
     //   데이터를 받아먹는 다고 맹목적으로 @RequestBody을 달아버리면 안된다. 이 경우에는 json이 아니라 멀티파트+폼 데이터이기 때문
     // 그리고 클라이언트에서 멀티파트폼 데이터로 제대로 보내줘야, 받아먹을 수 있다. axios.post 요청 날리는 부분 참고
