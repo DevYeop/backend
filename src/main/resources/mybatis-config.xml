@@ -11,6 +11,7 @@
     <typeAliases>
         <package name="org.scoula.security.account.domain"/>
         <package name="org.scoula.board.domain"/>
+        <package name="org.scoula.money.domain"/>
     </typeAliases>
 
 </configuration>
