@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scoula.money.mapper.MoneyMapper">
+
+    <insert id="create">
+        INSERT INTO expense (user_id, amount, category_id, description, date)
+        VALUES (#{id}, #{amount}, #{category}, #{description}, #{date});
+    </insert>
+    <select id="getCategories" resultType="CategoryVO">
+        SELECT *
+        from categories
+    </select>
+
+    <select id="getExpenseByMonth" resultType="ExpenseByMonthVO">
+        SELECT e.category_id, c.name, SUM(e.amount) AS total_amount
+        FROM expense e
+                 JOIN categories c ON e.category_id = c.id
+        WHERE MONTH (e.date) = #{month}
+          AND YEAR (e.date) = #{year}
+        GROUP BY e.category_id, c.name
+        ORDER BY e.category_id;
+    </select>
+    <select id="getRecentExpense" resultType="RecentExpenseVO">
+        SELECT *
+        FROM expense e
+        ORDER BY e.id DESC LIMIT 6;
+    </select>
+
+
+</mapper>
