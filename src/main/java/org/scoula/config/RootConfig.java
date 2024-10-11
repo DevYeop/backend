@@ -19,9 +19,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource({"classpath:/application.properties"})
-@MapperScan(basePackages = {"org.scoula.board.mapper", "org.scoula.member.mapper"})
-@ComponentScan(basePackages = {"org.scoula.board.service", "org.scoula.member.service"})
+@PropertySource({"classpath:/application.properties", "classpath:/application-secret.properties"})
+@MapperScan(basePackages = {"org.scoula.board.mapper", "org.scoula.member.mapper", "org.scoula.money.mapper"})
+@ComponentScan(basePackages = {"org.scoula.board.service", "org.scoula.member.service", "org.scoula.money.service"})
 @Slf4j
 @EnableTransactionManagement
 public class RootConfig {
@@ -34,11 +34,26 @@ public class RootConfig {
     @Value("${jdbc.password}")
     String password;
 
+    @Value("${jdbc.testNumber}")
+    int testNumber;
+
+    @Value("${jwt.secret-key}")
+    String secretKey;
+
+    @Value("${jwt.token-validity}")
+    int validity;
+
+
     @Autowired
     ApplicationContext applicationContext;
 
     @Bean
     public DataSource dataSource() {
+
+        log.info("testNumber:" + testNumber);
+        log.info("secretKey:" + secretKey);
+        log.info("validity:" + validity);
+
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(driver);
         config.setJdbcUrl(url);
